@@ -21,11 +21,11 @@
     </section>
 
     <section>
-        <img src="styles/images/codingimage.jpg" alt="Group Photo" class="image1"/>
+        <img src=".../project1/styles/images/codingimage.jpg" alt="Group Photo" class="image1"/>
     </section>
 
     <section>
-        <img src="styles/images/robots.jpg" alt="Group Photo" class="image2"/>
+        <img src=".../project1/styles/images/robots.jpg" alt="Group Photo" class="image2"/>
     </section>
 
     <!--The Services listed were partially created using generative AI-->
@@ -76,7 +76,7 @@
         </section>
     </section>
 
-    <section> <img src="styles/images/REALTRANSPARENTIMAGE.png" alt="plus sign image" class="image3"/> </section>
+    <section> <img src=".../project1/styles/images/REALTRANSPARENTIMAGE.png" alt="plus sign image" class="image3"/> </section>
 
     <section class="news"> <!-- News section starts -->
         <h1 class="Capsule">News & Updates</h1> <!-- News section heading -->

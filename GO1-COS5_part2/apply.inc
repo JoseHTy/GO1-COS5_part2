@@ -9,9 +9,9 @@
         </p>
     </section>
     <aside> <!--images using aside factor-->
-        <img src="styles/images/success.jpg" alt="CSSIMAGE" class="image4"/>
-        <img src="styles/images/csstransparent.png" alt="CSSIMAGE" class="image5"/>
-        <img src="styles/images/HTMLIMAGETRANSPARENT.png" alt="HTMLIMAGE" class="image6"/>
+        <img src=".../project1/styles/images/success.jpg" alt="CSSIMAGE" class="image4"/>
+        <img src=".../project1/styles/images/csstransparent.png" alt="CSSIMAGE" class="image5"/>
+        <img src=".../project1/styles/images/HTMLIMAGETRANSPARENT.png" alt="HTMLIMAGE" class="image6"/>
     </aside>
 
 

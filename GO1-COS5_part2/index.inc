@@ -76,7 +76,7 @@
         </section>
     </section>
 
-    <section> <img src=".../project1/styles/images/REALTRANSPARENTIMAGE.png" alt="plus sign image" class="image3"/> </section>
+    <section> <img src="../project1/styles/images/REALTRANSPARENTIMAGE.png" alt="plus sign image" class="image3"/> </section>
 
     <section class="news"> <!-- News section starts -->
         <h1 class="Capsule">News & Updates</h1> <!-- News section heading -->

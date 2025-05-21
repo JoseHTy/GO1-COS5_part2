@@ -61,6 +61,6 @@
         </table>
     </article>
 
-    <img src=".../project1/images/groupphoto.png.jpg" alt="Group Photo" class="groupimage"/> <!-- Placeholder for team photo -->
+    <img src="../project1/images/groupphoto.png.jpg" alt="Group Photo" class="groupimage"/> <!-- Placeholder for team photo -->
   </div> <!-- close container -->
 </div> <!-- close backgroundimage -->

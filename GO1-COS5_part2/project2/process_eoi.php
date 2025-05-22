@@ -1,83 +1,134 @@
 <?php
-// process_eoi.php
-
 // Prevent direct access
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: apply.php");
     exit();
 }
 
-function sanitize_input($data) {
-    return htmlspecialchars(stripslashes(trim($data)));
+// Sanitize function (your version)
+function clean_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 
-// Required fields
-$required = [
-    "reference_number", "Given_Name", "Last_Name", "Date_Of_Birth", "Gender",
-    "Street_Address", "Suburb", "State", "Postcode", "Email_Address", "Phone_Number", "Required_Technical_List"
-];
+// Validate and sanitize form data
+$errors = [];
 
-foreach ($required as $field) {
-    if (!isset($_POST[$field]) || trim($_POST[$field]) === "") {
-        die("Error: Missing required field '$field'");
+$reference_number = clean_input($_POST['reference_number'] ?? '');
+$first_name = clean_input($_POST['Given_Name'] ?? '');
+$last_name = clean_input($_POST['Last_Name'] ?? '');
+$dob = clean_input($_POST['Date_Of_Birth'] ?? '');
+$gender = clean_input($_POST['Gender'] ?? '');
+$street_address = clean_input($_POST['Street_Address'] ?? '');
+$suburb = clean_input($_POST['Suburb'] ?? '');
+$state = clean_input($_POST['State'] ?? '');
+$postcode = clean_input($_POST['Postcode'] ?? '');
+$email = clean_input($_POST['Email_Address'] ?? '');
+$phone = clean_input($_POST['Phone_Number'] ?? '');
+$otherskills = clean_input($_POST['Other_Skills'] ?? '');
+$required_skills = $_POST['Required_Technical_List'] ?? [];
+
+// Field validations
+if (empty($reference_number)) $errors[] = "Job reference is required.";
+if (!preg_match("/^[a-zA-Z]{1,20}$/", $first_name)) $errors[] = "Invalid first name.";
+if (!preg_match("/^[a-zA-Z]{1,20}$/", $last_name)) $errors[] = "Invalid last name.";
+if (!preg_match("/^\d{2}\/\d{2}\/\d{4}$/", $dob)) $errors[] = "Date of birth must be in dd/mm/yyyy format.";
+if (empty($gender)) $errors[] = "Gender is required.";
+if (strlen($street_address) > 40) $errors[] = "Address must be 40 characters or less.";
+if (strlen($suburb) > 40) $errors[] = "Suburb must be 40 characters or less.";
+if (!in_array($state, ['Victoria', 'New South Wales', 'Queensland', 'Northern Territory', 'West Australia', 'South Australia', 'Tasmania', 'Australian Capital Territory'])) $errors[] = "Invalid state.";
+if (!preg_match("/^\d{4}$/", $postcode)) $errors[] = "Postcode must be 4 digits.";
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = "Invalid email format.";
+if (!preg_match("/^[\d ]{8,12}$/", $phone)) $errors[] = "Phone number must be 8–12 digits or spaces.";
+if (count($required_skills) === 0) $errors[] = "At least one technical skill must be selected.";
+
+// Postcode-State Match
+$statePostcodeMap = [
+    'Victoria' => ['3', '8'],
+    'New South Wales' => ['1', '2'],
+    'Queensland' => ['4', '9'],
+    'Norhtern Territory'  => ['0'],
+    'West Australia'  => ['6'],
+    'South Australia'  => ['5'],
+    'Tasmania' => ['7'],
+    'Australian Capital Territory' => ['0']
+];
+if (isset($statePostcodeMap[$state])) {
+    if (!in_array(substr($postcode, 0, 1), $statePostcodeMap[$state])) {
+        $errors[] = "Postcode does not match selected state.";
     }
+} else {
+    $errors[] = "Invalid state selection.";
 }
 
-// Sanitize inputs
-$job_ref     = sanitize_input($_POST["reference_number"]);
-$first_name  = sanitize_input($_POST["Given_Name"]);
-$last_name   = sanitize_input($_POST["Last_Name"]);
-$dob         = sanitize_input($_POST["Date_Of_Birth"]);
-$gender      = sanitize_input($_POST["Gender"]);
-$street      = sanitize_input($_POST["Street_Address"]);
-$suburb      = sanitize_input($_POST["Suburb"]);
-$state       = sanitize_input($_POST["State"]);
-$postcode    = sanitize_input($_POST["Postcode"]);
-$email       = sanitize_input($_POST["Email_Address"]);
-$phone       = sanitize_input($_POST["Phone_Number"]);
-$skills      = is_array($_POST["Required_Technical_List"]) ? implode(", ", $_POST["Required_Technical_List"]) : sanitize_input($_POST["Required_Technical_List"]);
-$otherskills = isset($_POST["Other_Skills"]) ? sanitize_input($_POST["Other_Skills"]) : "";
 
-// Validations
-if (!preg_match("/^[a-zA-Z]{1,20}$/", $first_name)) die("Invalid first name");
-if (!preg_match("/^[a-zA-Z]{1,20}$/", $last_name)) die("Invalid last name");
-if (!preg_match("/^\\d{2}\\/\\d{2}\\/\\d{4}$/", $dob)) die("Invalid date format, use dd/mm/yyyy");
-if (!in_array($state, ["VIC","NSW","QLD","NT","WA","SA","TAS","ACT"])) die("Invalid state");
-if (!preg_match("/^\\d{4}$/", $postcode)) die("Postcode must be exactly 4 digits");
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) die("Invalid email format");
-if (!preg_match("/^\\d{8,12}$/", preg_replace("/\\s+/", "", $phone))) die("Phone must be 8-12 digits");
+// Show errors if any
+if (!empty($errors)) {
+    echo "<h2>Form submission failed due to the following errors:</h2><ul>";
+    foreach ($errors as $error) {
+        echo "<li>$error</li>";
+    }
+    echo "</ul><p><a href='apply.php'>Go back to the application form</a></p>";
+    exit();
+}
 
-// Postcode/state match
-$map = [
-    "VIC" => "/^3|8/", "NSW" => "/^1|2/", "QLD" => "/^4|9/", "NT" => "/^0/",
-    "WA" => "/^6/", "SA" => "/^5/", "TAS" => "/^7/", "ACT" => "/^0/"
-];
-if (!preg_match($map[$state], $postcode[0])) die("Postcode does not match the selected state");
+// Connect to database
+require_once("../settings.php"); // contains $host, $user, $pwd, $sql_db
 
-// Connect to DB
-require_once("settings.php"); // $host, $user, $pswd, $db
-$conn = @mysqli_connect($host, $user, $pswd, $db);
-if (!$conn) die("DB Connection failed: " . mysqli_connect_error());
+$conn = @mysqli_connect($host, $username, $password, $database);
+if (!$conn) {
+    die("<p>Database connection failure</p>");
+}
 
+// Create table if not exists
+$table = "eoi";
+$createTable = "CREATE TABLE IF NOT EXISTS $table (
+    EOInumber INT AUTO_INCREMENT PRIMARY KEY,
+    JobRefNumber VARCHAR(10),
+    FirstName VARCHAR(20),
+    LastName VARCHAR(20),
+    StreetAddress VARCHAR(40),
+    Suburb VARCHAR(40),
+    State VARCHAR(3),
+    Postcode VARCHAR(4),
+    Email VARCHAR(50),
+    Phone VARCHAR(12),
+    Skill1 VARCHAR(30),
+    Skill2 VARCHAR(30),
+    Skill3 VARCHAR(30),
+    Skill4 VARCHAR(30),
+    Skill5 VARCHAR(30),
+    OtherSkills TEXT,
+    Status VARCHAR(10) DEFAULT 'New'
+)";
+mysqli_query($conn, $createTable);
 
-// Insert data
-$dob_mysql = DateTime::createFromFormat("d/m/Y", $dob)->format("Y-m-d");
+// Prepare skill fields
+$skillFields = array_fill(0, 5, null);
+for ($i = 0; $i < count($required_skills) && $i < 5; $i++) {
+    $skillFields[$i] = clean_input($required_skills[$i]);
+}
 
-$query = "INSERT INTO EOI
-    (JobRef, FirstName, LastName, DOB, Gender, Street, Suburb, State, Postcode, Email, Phone, Skills, OtherSkills)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-$stmt = mysqli_prepare($conn, $query);
-mysqli_stmt_bind_param($stmt, "sssssssssssss",
-    $job_ref, $first_name, $last_name, $dob_mysql, $gender, $street, $suburb,
-    $state, $postcode, $email, $phone, $skills, $otherskills);
+// Insert into table
+$insertQuery = "INSERT INTO $table 
+(JobRefNumber, FirstName, LastName, StreetAddress, Suburb, State, Postcode, Email, Phone, Skill1, Skill2, Skill3, Skill4, Skill5, OtherSkills)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+$stmt = mysqli_prepare($conn, $insertQuery);
+mysqli_stmt_bind_param($stmt, "sssssssssssssss", 
+    $reference_number, $first_name, $last_name, $street_address, $suburb, $state, $postcode, $email, $phone,
+    $skillFields[0], $skillFields[1], $skillFields[2], $skillFields[3], $skillFields[4],
+    $otherskills
+);
 
 if (mysqli_stmt_execute($stmt)) {
-    $eoi_id = mysqli_insert_id($conn);
-    echo "<h2>Application Submitted!</h2>";
-    echo "<p>Your EOI Number: <strong>{$eoi_id}</strong></p>";
+    $eoiID = mysqli_insert_id($conn);
+    echo "<h2>Application Received</h2>";
+    echo "<p>Your application has been submitted successfully.</p>";
+    echo "<p>Your EOI Number is: <strong>$eoiID</strong></p>";
 } else {
-    echo "<p>Error submitting your application.</p>";
+    echo "<p>Something went wrong. Please try again later.</p>";
 }
 
 mysqli_stmt_close($stmt);

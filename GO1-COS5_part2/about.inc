@@ -26,15 +26,27 @@
             <dt>Team Members Contribution:</dt> <!-- Contributions label -->
             <dd><strong>Jacob:</strong> My contribuion included completing both the index and about html pages, 
               Implemented the CSS styling for webpage, hosted the Jira project and nominated all tasks and storys, 
-              and maintained contact withn my team.</dd> <!-- Jacob's contribution placeholder -->
+              and maintained contact withn my team. Completed tasks 7 & 8. Created jobs table in the SQL 
+  database which stores job descriptions and dynamically creates HTML through PHP. Completed 
+  the specified enhancements including: Providing the ability to select fields and sort the
+   order of records, created a manager registration page, adding control access through 
+   username and password validation, 
+  and the ability to disable user login after too many incorrect attempts.</dd> <!-- Jacob's contribution placeholder -->
 
             <dd><strong>Manjot:</strong> I contributed by updating the jobs.html page, adding new sections 
               and structuring the content with semantic HTML. I also modified the groups-styling.css file, as per my work. 
-              Additionally, I collaborated with the team to ensure design consistency and helped troubleshoot layout issues.</dd> <!-- Manjot's contribution placeholder -->
+              Additionally, I collaborated with the team to ensure design consistency and helped troubleshoot
+               layout issues.I worked on the manage.php page, which is used by the HR Manager to handle EOIs.
+                I wrote the PHP code to list, search, update, and delete records from the database. I also 
+                fixed some big issues with the database connection, made sure the form data was handled securely, 
+              and helped link the back-end with the front-end properly.</dd> <!-- Manjot's contribution placeholder -->
 
             <dd><strong>Jose:</strong> Contributed front and back-end, created apply.html and also assisted in managing the other 
               html files aswell, in which i made everything match the preset aesthetic of the website, followed JIRA tasks and stories, maintained contact 
-              with team members, assisted in both styling and responsiveness for css and I host the github repository. </dd> <!-- Jose's contribution placeholder -->
+              with team members, assisted in both styling and responsiveness for css and I host the github repository.
+              I handled Tasks 1 to 4, where I turned all the HTML pages from Part 1 into PHP 
+              files to make the site dynamic. I also created the full MySQL database and built the EOI submission page, making sure it connected and worked properly.
+               This helped set up a strong base for the rest of the project. </dd> <!-- Jose's contribution placeholder -->
 
         </dl>
     </section>

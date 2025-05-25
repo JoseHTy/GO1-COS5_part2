@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
 $db   = 'project2_database';
-$user = 'your_username';
-$pass = 'your_password';
+$user = '';
+$pass = '';
 
 $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {

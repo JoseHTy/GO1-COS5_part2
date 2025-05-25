@@ -31,7 +31,7 @@ $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
             echo "<div class='job'>";
             echo "<h2>" . htmlspecialchars($row['title']) . "</h2>";
-            echo $row['description'];  // Assumes description contains safe HTML
+            echo $row['description'];  
             echo "</div>";
         }
     } else {

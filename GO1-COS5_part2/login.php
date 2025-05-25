@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-$username = 'admin';
-$password = 'password123';
+$username = '';
+$password = '';
 
 if (isset($_POST['login'])) {
     if ($_POST['user'] === $username && $_POST['pass'] === $password) {

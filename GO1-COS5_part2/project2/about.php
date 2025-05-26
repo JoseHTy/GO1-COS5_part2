@@ -14,8 +14,10 @@
     <?php include '../nav.inc'; ?>
 
     <?php include '../header.inc'; ?>
+      <?php include '../about.inc'; ?> 
 
-    <?php include '../about.inc'; ?>
+
+   
 
 </body>
 </html>

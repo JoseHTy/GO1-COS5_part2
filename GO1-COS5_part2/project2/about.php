@@ -7,14 +7,17 @@
   <meta name="keywords" content="software, web, technology" />
   <meta name="author" content="Jacob Semmel" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../project1/styles/styles.css" />
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
 
-    <?php include '../nav.inc'; ?>
+    <?php include 'nav.inc'; ?>
 
-    <?php include '../header.inc'; ?>
-      <?php include '../about.inc'; ?> 
+    <?php include 'header.inc'; ?>
+    <?php include 'about.inc'; ?> 
+
+
+    <?php include 'footer.inc'; ?>
 
 
    

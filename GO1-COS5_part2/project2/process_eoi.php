@@ -75,7 +75,7 @@ if (!empty($errors)) {
 }
 
 // Connect to database
-require_once("../settings.php"); // contains $host, $user, $pwd, $sql_db
+require_once("settings.php"); // contains $host, $user, $pwd, $sql_db
 
 $conn = @mysqli_connect($host, $username, $password, $database);
 if (!$conn) {

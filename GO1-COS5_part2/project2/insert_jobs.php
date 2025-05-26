@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
 $db   = 'project2_database';
-$user = '';
+$user = 'root';
 $pass = '';
 
 $conn = new mysqli($host, $user, $pass, $db);
@@ -28,15 +28,11 @@ $sql = "INSERT INTO jobs (title, description) VALUES
 <li><strong>Reports To:</strong> Senior Network Engineer</li>
 </ul>
 <h3>About the Role</h3>
-<p>As a Junior Network Administrator, you will support network maintenance and security...</p>');";
+<p>As a Junior Network Administrator, you will support network maintenance and security...</p>')";
 
 if ($conn->query($sql)) {
     echo "Jobs inserted successfully!";
-}
-
-    echo "Jobs inserted successfully!";
-
-    else {
+} else {
     echo "Error: " . $conn->error;
 }
 

@@ -1,12 +1,10 @@
 <?php
 require_once("settings.php");
 
-function displayResults($result) {      //this is a table created to retrieve data from  my sql query 
-    // and for the manager to search different parts of it .
+function displayResults($result) {      
     if (mysqli_num_rows($result) > 0) {
 echo "<table border='1'><tr>
-<th>EOInumber</th><th>Job ref</th><th>Name</th><th>Email</th>
-<th>Phone</th><th>status</th></tr>";
+<th>EOInumber</th><th>Job ref</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Phone</th><th>Status</th></tr>";
 while ($row = mysqli_fetch_assoc($result)){
 
 echo "<tr>

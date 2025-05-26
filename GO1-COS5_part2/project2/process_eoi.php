@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-// Sanitize function (your version)
+// Sanitize function 
 function clean_input($data) {
     $data = trim($data);
     $data = stripslashes($data);

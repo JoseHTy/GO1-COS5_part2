@@ -30,9 +30,13 @@ $sql = "INSERT INTO jobs (title, description) VALUES
 <h3>About the Role</h3>
 <p>As a Junior Network Administrator, you will support network maintenance and security...</p>');";
 
-if ($conn->multi_query($sql)) {
+if ($conn->query($sql)) {
     echo "Jobs inserted successfully!";
-} else {
+}
+
+    echo "Jobs inserted successfully!";
+
+    else {
     echo "Error: " . $conn->error;
 }
 

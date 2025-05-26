@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Enhancements</title>
+  <meta charset="utf-8" />
+  <title>About Us</title>
+  <meta name="description" content="About Us" />
+  <meta name="keywords" content="software, web, technology" />
+  <meta name="author" content="Manjot" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
+
+
+    <?php include 'nav.inc'; ?>
+
+    <?php include 'header.inc'; ?>
     <h1>Enhancements</h1>
 
     <h2>1. Manager-Controlled Sorting</h2>
@@ -21,5 +31,7 @@
     they are redirected. This enhances security by ensuring only authorized users can view or manage EOIs.
 </p>
 
+
+    <?php include 'footer.inc'; ?>
 </body>
 </html>

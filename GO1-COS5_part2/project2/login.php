@@ -98,3 +98,36 @@ include 'header.inc';
 
 </body>
 </html>
+<?php
+session_start();
+require_once("settings.php"); // DB connection
+
+if (isset($_POST['login'])) {
+    $inputUser = $_POST['user'];
+    $inputPass = $_POST['pass'];
+
+    $stmt = $conn->prepare("SELECT password FROM managers WHERE username = ?");
+    $stmt->bind_param("s", $inputUser);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows == 1) {
+        $stmt->bind_result($hashed_password);
+        $stmt->fetch();
+
+        if (password_verify($inputPass, $hashed_password)) {
+            $_SESSION['loggedin'] = true;
+            $_SESSION['username'] = $inputUser;
+            header("Location: manage.php");
+            exit();
+        } else {
+            $error = "Invalid username or password.";
+        }
+    } else {
+        $error = "Invalid username or password.";
+    }
+    $stmt->close();
+    $conn->close();
+}
+?>
+

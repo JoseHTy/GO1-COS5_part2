@@ -31,6 +31,12 @@
   After 3 failed logins, users are locked out for 5 minutes. Attempts are tracked in a database table, and on success, the count resets. This helps prevent brute-force attacks.
 </p>
 
+<h2>4. Manager Registration with Validation</h2>
+<p>
+  A registration page was created for managers with server-side validation enforcing unique usernames and strong password rules. New accounts are securely stored in the database, allowing controlled user management.
+</p>
+
+
 <?php include 'footer.inc'; ?>
 </body>
 </html>

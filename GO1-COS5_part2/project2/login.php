@@ -9,6 +9,16 @@ $validPassword = 'password123';
 
 $error = "";
 
+
+// Create login_attempts table if it doesn't exist
+$createTableQuery = "
+CREATE TABLE IF NOT EXISTS login_attempts (
+    username VARCHAR(50) NOT NULL PRIMARY KEY,
+    attempts INT NOT NULL DEFAULT 0,
+    locked_until DATETIME NULL
+)";
+$conn->query($createTableQuery);
+
 // Check if login form is submitted
 if (isset($_POST['login'])) {
     $inputUser = $_POST['user'];
@@ -99,7 +109,7 @@ include 'header.inc';
 </body>
 </html>
 <?php
-session_start();
+
 require_once("settings.php"); // DB connection
 
 if (isset($_POST['login'])) {
@@ -130,4 +140,6 @@ if (isset($_POST['login'])) {
     $conn->close();
 }
 ?>
+
+<?php include 'footer.inc'; ?>
 

@@ -1,3 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8" />
+  <title>Process_Eoi</title>
+  <meta name="description" content="About Us" />
+  <meta name="keywords" content="software, web, technology" />
+  <meta name="author" content="Jose" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+
+
+<body>
+
+  <?php include 'nav.inc'; ?>
+
+    <?php include 'header.inc'; ?>
+
+
 <?php
 // Prevent direct access
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -113,16 +133,15 @@ for ($i = 0; $i < count($required_skills) && $i < 5; $i++) {
 
 // Insert into table
 $insertQuery = "INSERT INTO $table 
-(JobRefNumber, FirstName, LastName, StreetAddress, Suburb, State, Postcode, Email, Phone, Skill1, Skill2, Skill3, Skill4, Skill5, OtherSkills)
-VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-$stmt = mysqli_prepare($conn, $insertQuery);
-mysqli_stmt_bind_param($stmt, "sssssssssssssss", 
-    $reference_number, $first_name, $last_name, $street_address, $suburb, $state, $postcode, $email, $phone,
-    $skillFields[0], $skillFields[1], $skillFields[2], $skillFields[3], $skillFields[4],
-    $otherskills
-);
+(JobRefNumber, FirstName, LastName, StreetAddress, Suburb, State, Postcode, Email, Phone, 
+ Skill1, Skill2, Skill3, Skill4, Skill5, OtherSkills) 
+VALUES (
+    '$reference_number', '$first_name', '$last_name', '$street_address', '$suburb', '$state', '$postcode', '$email', '$phone',
+    '{$skillFields[0]}', '{$skillFields[1]}', '{$skillFields[2]}', '{$skillFields[3]}', '{$skillFields[4]}',
+    '$otherskills'
+)";
 
-if (mysqli_stmt_execute($stmt)) {
+if (mysqli_query($conn, $insertQuery)) {
     $eoiID = mysqli_insert_id($conn);
     echo "<h2>Application Received</h2>";
     echo "<p>Your application has been submitted successfully.</p>";
@@ -131,6 +150,12 @@ if (mysqli_stmt_execute($stmt)) {
     echo "<p>Something went wrong. Please try again later.</p>";
 }
 
-mysqli_stmt_close($stmt);
+
 mysqli_close($conn);
+
+
+
+
+
 ?>
+<?php include 'footer.inc'; ?>

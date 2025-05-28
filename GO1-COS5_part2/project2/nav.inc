@@ -5,6 +5,8 @@
   <a href="jobs.php">Job Descriptions</a> <!-- Link to jobs page -->
   <a href="apply.php">Apply</a> <!-- Link to apply page -->
   <a href="about.php">About us</a> <!-- Link to about page -->
+  <a &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; href="login.php"> Manager Login </a>
   <a>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Thank you for using this site</a>
 </div>
+
 
